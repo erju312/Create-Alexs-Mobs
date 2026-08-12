@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "create:copper_backtank"
+    },
+    {
+      "item": "create:precision_mechanism"
+    }
+  ],
+  "result": {
+    "item": "create:copper_backtank",
+    "nbt": "{CAMSeagullRepellent:1b}"
+  }
+}

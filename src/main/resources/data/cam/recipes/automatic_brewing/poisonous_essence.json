@@ -1,0 +1,23 @@
+{
+  "type": "create:mixing",
+  "heatRequirement": "heated",
+  "ingredients": [
+    {
+      "amount": 1000,
+      "fluid": "create:potion",
+      "nbt": {
+        "Bottle": "REGULAR",
+        "Potion": "minecraft:poison"
+      }
+    },
+    {
+      "item": "alexsmobs:rattlesnake_rattle"
+    }
+  ],
+  "results": [
+    {
+      "amount": 1000,
+      "fluid": "cam:poisonous_essence"
+    }
+  ]
+}

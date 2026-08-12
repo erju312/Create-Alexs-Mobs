@@ -1,0 +1,7 @@
+{
+  "fluid.cam.poisonous_essence": "Essence toxique",
+  "fluid.cam.komodo_spit": "Salive de dragon de Komodo",
+  "fluid.cam.fish_oil": "Huile de poisson",
+  "tooltip.cam.seagull_backtank.title": "Rafale anti-mouettes",
+  "tooltip.cam.seagull_backtank.description": "Repousse les mouettes proches quand elles tentent de voler de la nourriture. Recharge de 3 s."
+}

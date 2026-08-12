@@ -1,0 +1,7 @@
+{
+  "fluid.cam.poisonous_essence": "毒素エッセンス",
+  "fluid.cam.komodo_spit": "コモドドラゴンの唾液",
+  "fluid.cam.fish_oil": "魚油",
+  "tooltip.cam.seagull_backtank.title": "カモメ撃退バースト",
+  "tooltip.cam.seagull_backtank.description": "食べ物を奪おうとする近くのカモメを気流で吹き飛ばす。クールダウン3秒。"
+}

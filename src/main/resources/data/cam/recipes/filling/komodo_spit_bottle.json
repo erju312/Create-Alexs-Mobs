@@ -1,0 +1,18 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "amount": 1000,
+      "fluid": "cam:komodo_spit",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "item": "alexsmobs:komodo_spit_bottle"
+    }
+  ]
+}

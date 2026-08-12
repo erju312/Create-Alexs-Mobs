@@ -1,0 +1,28 @@
+{
+  "type": "create:mixing",
+  "heatRequirement": "heated",
+  "ingredients": [
+    {
+      "amount": 1000,
+      "fluid": "create:potion",
+      "nbt": {
+        "Bottle": "REGULAR",
+        "Potion": "alexsmobs:poison_resistance"
+      }
+    },
+    {
+      "amount": 250,
+      "fluid": "cam:komodo_spit"
+    }
+  ],
+  "results": [
+    {
+      "amount": 1000,
+      "fluid": "create:potion",
+      "nbt": {
+        "Bottle": "REGULAR",
+        "Potion": "alexsmobs:long_poison_resistance"
+      }
+    }
+  ]
+}

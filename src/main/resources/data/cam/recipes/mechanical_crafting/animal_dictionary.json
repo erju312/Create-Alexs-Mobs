@@ -1,0 +1,21 @@
+{
+  "type": "create:mechanical_crafting",
+  "acceptMirrored": false,
+  "key": {
+    "B": {
+      "item": "minecraft:book"
+    },
+    "D": {
+      "tag": "forge:dyes/green"
+    },
+    "I": {
+      "tag": "alexsmobs:animal_dictionary_ingredient"
+    }
+  },
+  "pattern": [
+    "BDI"
+  ],
+  "result": {
+    "item": "alexsmobs:animal_dictionary"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.erju312.cam.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "cam.mixins.refmap.json",
+  "mixins": [
+    "BlazeBurnerBlockMixin",
+    "BlazeBurnerBlockEntityMixin",
+    "MechanicalMixerBlockEntityMixin",
+    "CrowAIDepositChestsPredicateMixin",
+    "SeagullAIStealFromPlayersMixin"
+  ],
+  "client": [
+    "CreateJeiCategoryBuilderMixin",
+    "ItemDrainRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

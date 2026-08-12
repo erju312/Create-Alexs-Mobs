@@ -1,0 +1,7 @@
+{
+  "fluid.cam.poisonous_essence": "毒素精華",
+  "fluid.cam.komodo_spit": "科莫多巨蜥唾液",
+  "fluid.cam.fish_oil": "魚油",
+  "tooltip.cam.seagull_backtank.title": "海鷗驅趕噴氣",
+  "tooltip.cam.seagull_backtank.description": "海鷗試圖搶走食物時，會噴出氣流將其吹開。冷卻3秒。"
+}

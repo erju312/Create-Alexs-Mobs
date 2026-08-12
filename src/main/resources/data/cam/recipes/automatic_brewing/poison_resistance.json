@@ -1,0 +1,23 @@
+{
+  "type": "create:mixing",
+  "heatRequirement": "heated",
+  "ingredients": [
+    {
+      "amount": 1000,
+      "fluid": "cam:poisonous_essence"
+    },
+    {
+      "item": "alexsmobs:centipede_leg"
+    }
+  ],
+  "results": [
+    {
+      "amount": 1000,
+      "fluid": "create:potion",
+      "nbt": {
+        "Bottle": "REGULAR",
+        "Potion": "alexsmobs:poison_resistance"
+      }
+    }
+  ]
+}

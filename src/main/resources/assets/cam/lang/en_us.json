@@ -1,0 +1,7 @@
+{
+  "fluid.cam.poisonous_essence": "Poisonous Essence",
+  "fluid.cam.komodo_spit": "Komodo Dragon Spit",
+  "fluid.cam.fish_oil": "Fish Oil",
+  "tooltip.cam.seagull_backtank.title": "Seagull Repellent Burst",
+  "tooltip.cam.seagull_backtank.description": "Blasts nearby seagulls away when they try to steal food. 3s cooldown."
+}

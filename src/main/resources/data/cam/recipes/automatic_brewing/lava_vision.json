@@ -1,0 +1,23 @@
+{
+  "type": "create:mixing",
+  "heatRequirement": "heated",
+  "ingredients": [
+    {
+      "amount": 1000,
+      "fluid": "minecraft:lava"
+    },
+    {
+      "item": "alexsmobs:bone_serpent_tooth"
+    }
+  ],
+  "results": [
+    {
+      "amount": 1000,
+      "fluid": "create:potion",
+      "nbt": {
+        "Bottle": "REGULAR",
+        "Potion": "alexsmobs:lava_vision"
+      }
+    }
+  ]
+}

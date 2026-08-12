@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "alexsmobs:fish_oil",
+    "alexsmobs:lava_bottle",
+    "alexsmobs:poison_bottle",
+    "alexsmobs:komodo_spit",
+    "alexsmobs:komodo_spit_bottle"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "fluid.cam.poisonous_essence": "Esencia venenosa",
+  "fluid.cam.komodo_spit": "Saliva de dragón de Komodo",
+  "fluid.cam.fish_oil": "Aceite de pescado",
+  "tooltip.cam.seagull_backtank.title": "Ráfaga antígaviotas",
+  "tooltip.cam.seagull_backtank.description": "Aleja a las gaviotas cercanas cuando intentan robar comida. 3 s de recarga."
+}

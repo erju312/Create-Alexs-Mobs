@@ -1,0 +1,14 @@
+{
+  "type": "create:compacting",
+  "ingredients": [
+    {
+      "item": "alexsmobs:blobfish"
+    }
+  ],
+  "results": [
+    {
+      "amount": 75,
+      "fluid": "cam:fish_oil"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "fluid.cam.poisonous_essence": "Giftessenz",
+  "fluid.cam.komodo_spit": "Komodowaran-Speichel",
+  "fluid.cam.fish_oil": "Fischöl",
+  "tooltip.cam.seagull_backtank.title": "Möwen-Abwehrstoß",
+  "tooltip.cam.seagull_backtank.description": "Bläst nahe Möwen weg, wenn sie Essen stehlen wollen. 3 s Abklingzeit."
+}

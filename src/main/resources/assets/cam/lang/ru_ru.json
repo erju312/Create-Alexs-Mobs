@@ -1,0 +1,7 @@
+{
+  "fluid.cam.poisonous_essence": "Ядовитая эссенция",
+  "fluid.cam.komodo_spit": "Слюна комодского варана",
+  "fluid.cam.fish_oil": "Рыбий жир",
+  "tooltip.cam.seagull_backtank.title": "Порыв против чаек",
+  "tooltip.cam.seagull_backtank.description": "Отбрасывает ближайших чаек, когда они пытаются украсть еду. Перезарядка 3 с."
+}

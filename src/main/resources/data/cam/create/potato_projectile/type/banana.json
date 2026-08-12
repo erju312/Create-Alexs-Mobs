@@ -1,0 +1,10 @@
+{
+  "damage": 3,
+  "items": "alexsmobs:banana",
+  "knockback": 0.5,
+  "render_mode": {
+    "type": "create:tumble"
+  },
+  "sound_pitch": 1.2,
+  "velocity_multiplier": 1.35
+}

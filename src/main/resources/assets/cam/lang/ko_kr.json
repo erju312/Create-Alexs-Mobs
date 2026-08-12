@@ -1,0 +1,7 @@
+{
+  "fluid.cam.poisonous_essence": "독성 정수",
+  "fluid.cam.komodo_spit": "코모도왕도마뱀 침",
+  "fluid.cam.fish_oil": "생선 기름",
+  "tooltip.cam.seagull_backtank.title": "갈매기 퇴치 분사",
+  "tooltip.cam.seagull_backtank.description": "먹이를 훔치려는 주변 갈매기를 공기 분사로 밀쳐냅니다. 재사용 대기시간 3초."
+}

@@ -1,0 +1,14 @@
+{
+  "type": "create:emptying",
+  "ingredients": [
+    {
+      "item": "alexsmobs:komodo_spit"
+    }
+  ],
+  "results": [
+    {
+      "amount": 250,
+      "fluid": "cam:komodo_spit"
+    }
+  ]
+}
