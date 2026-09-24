@@ -12,6 +12,7 @@
     "SeagullAIStealFromPlayersMixin"
   ],
   "client": [
+    "BacktankArmorLayerMixin",
     "CreateJeiCategoryBuilderMixin",
     "ItemDrainRendererMixin"
   ],

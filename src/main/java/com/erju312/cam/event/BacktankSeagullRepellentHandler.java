@@ -30,6 +30,8 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = CAMMod.MOD_ID)
 public final class BacktankSeagullRepellentHandler {
     public static final String REPELLENT_TAG = "CAMSeagullRepellent";
+    public static final String GEAR_BURST_COUNT_TAG = "CAMGearBurstCount";
+    public static final String GEAR_BURST_TIME_TAG = "CAMGearBurstTime";
     private static final String COOLDOWN_TAG = "CAMSeagullRepellentCooldown";
     private static final String REPEL_TICKS_TAG = "CAMSeagullRepelTicks";
     private static final String REPEL_X_TAG = "CAMSeagullRepelX";
@@ -128,6 +130,7 @@ public final class BacktankSeagullRepellentHandler {
         }
 
         BacktankUtil.consumeAir(player, backtank, getAirCost(backtank));
+        markGearBurst(player, backtank);
         seagulls.forEach(seagull -> repelSeagull(player, seagull));
         player.getPersistentData().putInt(COOLDOWN_TAG, COOLDOWN_TICKS);
         spawnAirBurst(player);
@@ -142,6 +145,13 @@ public final class BacktankSeagullRepellentHandler {
             0.95F + player.getRandom().nextFloat() * 0.1F
         );
         return true;
+    }
+
+    private static void markGearBurst(Player player, ItemStack backtank) {
+        CompoundTag tag = backtank.getOrCreateTag();
+        int burstCount = Math.floorMod(tag.getInt(GEAR_BURST_COUNT_TAG) + 1, 45);
+        tag.putInt(GEAR_BURST_COUNT_TAG, burstCount);
+        tag.putLong(GEAR_BURST_TIME_TAG, player.level().getGameTime());
     }
 
     private static boolean hasEnoughAir(Player player) {
