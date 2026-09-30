@@ -66,6 +66,15 @@ When a seagull successfully starts stealing food from the player, the tagged bac
 
 Hold Shift over the crafted backtank to see the extra tooltip.
 
+## Configuration
+
+Forge generates `config/cam-common.toml` after the mod starts. It includes options for:
+
+- Enabling Create filters for crow item deposits.
+- Seagull repellent range, cooldown, air cost, repel duration, and flight target distance.
+- Backtank gear burst animation, initial speed multiplier, and return time.
+- Lava Bottle and Fish Oil bottle Blaze Burner support and burn duration.
+
 ## Building From Source
 
 The project expects Create, Alex's Mobs, and JEI jars to be available locally for compilation. They are not redistributed in this repository.

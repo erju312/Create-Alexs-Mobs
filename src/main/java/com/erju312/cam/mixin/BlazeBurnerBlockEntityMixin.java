@@ -1,5 +1,6 @@
 package com.erju312.cam.mixin;
 
+import com.erju312.cam.init.ModConfigs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -67,13 +68,17 @@ public class BlazeBurnerBlockEntityMixin {
     }
 
     private static int cam$getBurnTicks(ResourceLocation itemId) {
-        if (LAVA_BOTTLE.equals(itemId)) {
-            return 230 * 20;
+        if (LAVA_BOTTLE.equals(itemId) && ModConfigs.COMMON.lavaBottleFuelEnabled.get()) {
+            return cam$secondsToTicks(ModConfigs.COMMON.lavaBottleBurnSeconds.get());
         }
-        if (FISH_OIL_BOTTLE.equals(itemId)) {
-            return 5750;
+        if (FISH_OIL_BOTTLE.equals(itemId) && ModConfigs.COMMON.fishOilBottleFuelEnabled.get()) {
+            return cam$secondsToTicks(ModConfigs.COMMON.fishOilBottleBurnSeconds.get());
         }
         return 0;
+    }
+
+    private static int cam$secondsToTicks(double seconds) {
+        return Math.max(1, (int) Math.round(seconds * 20.0D));
     }
 
     private static boolean cam$isCreative(Object burner) {

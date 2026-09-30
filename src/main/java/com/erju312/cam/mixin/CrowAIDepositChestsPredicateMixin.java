@@ -1,5 +1,6 @@
 package com.erju312.cam.mixin;
 
+import com.erju312.cam.init.ModConfigs;
 import com.github.alexthe666.alexsmobs.entity.EntityCrow;
 import com.simibubi.create.content.logistics.filter.FilterItemStack;
 import net.minecraft.core.BlockPos;
@@ -24,7 +25,7 @@ public class CrowAIDepositChestsPredicateMixin {
 
     @Inject(method = "apply(Lnet/minecraft/world/entity/decoration/ItemFrame;)Z", at = @At("RETURN"), cancellable = true, remap = false)
     private void cam$allowCreateFiltersOnFrames(ItemFrame frame, CallbackInfoReturnable<Boolean> cir) {
-        if (cir.getReturnValueZ()) {
+        if (cir.getReturnValueZ() || !ModConfigs.COMMON.crowCreateFiltersEnabled.get()) {
             return;
         }
 

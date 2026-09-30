@@ -1,6 +1,7 @@
 package com.erju312.cam.mixin;
 
 import com.erju312.cam.event.BacktankSeagullRepellentHandler;
+import com.erju312.cam.init.ModConfigs;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -20,13 +21,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(targets = "com.simibubi.create.content.equipment.armor.BacktankArmorLayer", remap = false)
 public class BacktankArmorLayerMixin {
     private static final float NORMAL_DEGREES_PER_TICK = 2.0F;
-    private static final float BURST_SPEED_MULTIPLIER = 24.0F;
-    private static final float BURST_DURATION_TICKS = 8.0F;
-    private static final float EXTRA_DEGREES_PER_TICK =
-        NORMAL_DEGREES_PER_TICK * (BURST_SPEED_MULTIPLIER - 1.0F);
-    private static final float EXTRA_DEGREES_PER_BURST =
-        EXTRA_DEGREES_PER_TICK * BURST_DURATION_TICKS * 0.5F;
-    private static final int BURST_COUNT_PERIOD = 45;
     private static final ThreadLocal<LivingEntity> CAM_RENDERED_ENTITY = new ThreadLocal<>();
 
     @Inject(method = "render", at = @At("HEAD"), remap = false)
@@ -60,26 +54,31 @@ public class BacktankArmorLayerMixin {
             return renderTime;
         }
 
+        if (!ModConfigs.COMMON.gearBurstAnimationEnabled.get()) {
+            return renderTime;
+        }
+
         ItemStack backtank = entity.getItemBySlot(EquipmentSlot.CHEST);
         CompoundTag tag = backtank.getTag();
         if (tag == null || !tag.contains(BacktankSeagullRepellentHandler.GEAR_BURST_TIME_TAG)) {
             return renderTime;
         }
 
-        int burstCount = Math.floorMod(
-            tag.getInt(BacktankSeagullRepellentHandler.GEAR_BURST_COUNT_TAG),
-            BURST_COUNT_PERIOD
-        );
+        int burstCount = Math.max(0, tag.getInt(BacktankSeagullRepellentHandler.GEAR_BURST_COUNT_TAG));
+        float durationTicks = (float) (ModConfigs.COMMON.gearBurstReturnSeconds.get() * 20.0D);
+        float speedMultiplier = ModConfigs.COMMON.gearBurstSpeedMultiplier.get().floatValue();
+        float extraDegreesPerTick = NORMAL_DEGREES_PER_TICK * (speedMultiplier - 1.0F);
+        float extraDegreesPerBurst = extraDegreesPerTick * durationTicks * 0.5F;
         float elapsed = renderTime - tag.getLong(BacktankSeagullRepellentHandler.GEAR_BURST_TIME_TAG);
         float extraDegrees;
-        if (elapsed >= BURST_DURATION_TICKS) {
-            extraDegrees = burstCount * EXTRA_DEGREES_PER_BURST;
+        if (elapsed >= durationTicks) {
+            extraDegrees = burstCount * extraDegreesPerBurst;
         } else {
-            int completedBursts = Math.floorMod(burstCount - 1, BURST_COUNT_PERIOD);
+            int completedBursts = Math.max(0, burstCount - 1);
             float activeTicks = Math.max(0.0F, elapsed);
-            float activeExtra = EXTRA_DEGREES_PER_TICK
-                * (activeTicks - activeTicks * activeTicks / (2.0F * BURST_DURATION_TICKS));
-            extraDegrees = completedBursts * EXTRA_DEGREES_PER_BURST + activeExtra;
+            float activeExtra = extraDegreesPerTick
+                * (activeTicks - activeTicks * activeTicks / (2.0F * durationTicks));
+            extraDegrees = completedBursts * extraDegreesPerBurst + activeExtra;
         }
 
         return renderTime + extraDegrees / NORMAL_DEGREES_PER_TICK;

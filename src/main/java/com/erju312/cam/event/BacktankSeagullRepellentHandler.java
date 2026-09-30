@@ -1,6 +1,7 @@
 package com.erju312.cam.event;
 
 import com.erju312.cam.CAMMod;
+import com.erju312.cam.init.ModConfigs;
 import com.erju312.cam.init.ModSounds;
 import com.simibubi.create.content.equipment.armor.BacktankUtil;
 import com.simibubi.create.foundation.particle.AirParticleData;
@@ -38,10 +39,6 @@ public final class BacktankSeagullRepellentHandler {
     private static final String REPEL_Z_TAG = "CAMSeagullRepelZ";
     private static final ResourceLocation SEAGULL_ID = ResourceLocation.fromNamespaceAndPath("alexsmobs", "seagull");
     private static final String SEAGULL_STEAL_GOAL = "com.github.alexthe666.alexsmobs.entity.ai.SeagullAIStealFromPlayers";
-    private static final int COOLDOWN_TICKS = 3 * 20;
-    private static final int REPEL_TICKS = 14;
-    private static final float AIR_COST_RATIO = 0.03F;
-    private static final double RANGE = 4.0D;
     private static Field targetField;
     private static Field stealCooldownField;
     private static Method setFlyingMethod;
@@ -101,10 +98,12 @@ public final class BacktankSeagullRepellentHandler {
     }
 
     public static boolean tryInterceptSeagullTheft(Player player, Mob thief) {
-        if (!hasRepellentBacktank(player)
+        double range = ModConfigs.COMMON.seagullRepellentRange.get();
+        if (!ModConfigs.COMMON.seagullRepellentEnabled.get()
+            || !hasRepellentBacktank(player)
             || getCooldown(player) > 0
             || !thief.isAlive()
-            || player.distanceToSqr(thief) > RANGE * RANGE
+            || player.distanceToSqr(thief) > range * range
             || !repelNearbySeagulls(player)) {
             return false;
         }
@@ -118,11 +117,12 @@ public final class BacktankSeagullRepellentHandler {
             return false;
         }
 
+        double range = ModConfigs.COMMON.seagullRepellentRange.get();
         List<Mob> seagulls = player.level()
-            .getEntitiesOfClass(Mob.class, player.getBoundingBox().inflate(RANGE), seagull ->
+            .getEntitiesOfClass(Mob.class, player.getBoundingBox().inflate(range), seagull ->
                 isSeagull(seagull)
                     && seagull.isAlive()
-                    && player.distanceToSqr(seagull) <= RANGE * RANGE
+                    && player.distanceToSqr(seagull) <= range * range
             );
 
         if (seagulls.isEmpty()) {
@@ -132,7 +132,7 @@ public final class BacktankSeagullRepellentHandler {
         BacktankUtil.consumeAir(player, backtank, getAirCost(backtank));
         markGearBurst(player, backtank);
         seagulls.forEach(seagull -> repelSeagull(player, seagull));
-        player.getPersistentData().putInt(COOLDOWN_TAG, COOLDOWN_TICKS);
+        player.getPersistentData().putInt(COOLDOWN_TAG, getCooldownTicks());
         spawnAirBurst(player);
         player.level().playSound(
             null,
@@ -149,7 +149,8 @@ public final class BacktankSeagullRepellentHandler {
 
     private static void markGearBurst(Player player, ItemStack backtank) {
         CompoundTag tag = backtank.getOrCreateTag();
-        int burstCount = Math.floorMod(tag.getInt(GEAR_BURST_COUNT_TAG) + 1, 45);
+        int burstCount = tag.getInt(GEAR_BURST_COUNT_TAG);
+        burstCount = burstCount == Integer.MAX_VALUE ? 1 : burstCount + 1;
         tag.putInt(GEAR_BURST_COUNT_TAG, burstCount);
         tag.putLong(GEAR_BURST_TIME_TAG, player.level().getGameTime());
     }
@@ -164,7 +165,12 @@ public final class BacktankSeagullRepellentHandler {
     }
 
     private static float getAirCost(ItemStack backtank) {
-        return Math.max(1.0F, BacktankUtil.maxAir(backtank) * AIR_COST_RATIO);
+        double ratio = ModConfigs.COMMON.seagullRepellentAirCostPercent.get() / 100.0D;
+        return Math.max(1.0F, (float) (BacktankUtil.maxAir(backtank) * ratio));
+    }
+
+    private static int getCooldownTicks() {
+        return Math.max(0, (int) Math.round(ModConfigs.COMMON.seagullRepellentCooldownSeconds.get() * 20.0D));
     }
 
     private static boolean isStealingFrom(Mob seagull, Player player) {
@@ -211,7 +217,7 @@ public final class BacktankSeagullRepellentHandler {
 
     private static void startRepelMotion(Mob seagull, Vec3 direction) {
         CompoundTag data = seagull.getPersistentData();
-        data.putInt(REPEL_TICKS_TAG, REPEL_TICKS);
+        data.putInt(REPEL_TICKS_TAG, ModConfigs.COMMON.seagullRepelDurationTicks.get());
         data.putDouble(REPEL_X_TAG, direction.x);
         data.putDouble(REPEL_Z_TAG, direction.z);
         applyRepelMotion(seagull, direction, true);
@@ -250,7 +256,8 @@ public final class BacktankSeagullRepellentHandler {
         seagull.hasImpulse = true;
         seagull.hurtMarked = true;
 
-        Vec3 wanted = seagull.position().add(direction.scale(6.0D)).add(0.0D, 1.2D, 0.0D);
+        double targetDistance = ModConfigs.COMMON.seagullRepelTargetDistance.get();
+        Vec3 wanted = seagull.position().add(direction.scale(targetDistance)).add(0.0D, 1.2D, 0.0D);
         seagull.getMoveControl().setWantedPosition(wanted.x, wanted.y, wanted.z, 1.8D);
     }
 
@@ -309,7 +316,7 @@ public final class BacktankSeagullRepellentHandler {
                 stealCooldownField = seagull.getClass().getDeclaredField("stealCooldown");
                 stealCooldownField.setAccessible(true);
             }
-            stealCooldownField.setInt(seagull, Math.max(stealCooldownField.getInt(seagull), COOLDOWN_TICKS));
+            stealCooldownField.setInt(seagull, Math.max(stealCooldownField.getInt(seagull), getCooldownTicks()));
         } catch (ReflectiveOperationException ignored) {
             // Stopping the running steal goal is enough; this just prevents an immediate retarget.
         }
